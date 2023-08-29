@@ -157,11 +157,11 @@ func SetResponseBodyHandler(c HTTPClient, u Unmarshaller, ptr any) DoFunc {
 			return resp, err
 		}
 		b, err := io.ReadAll(resp.Body)
+		fmt.Printf("resp: %s", b)
 		closeErr := resp.Body.Close()
 		if err != nil {
 			return resp, err
 		}
-		fmt.Printf("resp: %s", b)
 		resp.Body = io.NopCloser(bytes.NewBuffer(b))
 		if err = u(b, ptr); err != nil {
 			return resp, err

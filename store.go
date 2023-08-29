@@ -327,7 +327,7 @@ func (c *StoreClient) GetNotificationHistory(ctx context.Context, body Notificat
 	var client HTTPClient
 	client = c.httpCli
 	client = SetInitializer(client, c.initHttpClient)
-	client = RequireResponseStatus(client, http.StatusOK)
+	// client = RequireResponseStatus(client, http.StatusOK)
 
 	for {
 		rsp := NotificationHistoryResponses{}
