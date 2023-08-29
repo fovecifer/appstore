@@ -317,11 +317,11 @@ func (c *StoreClient) GetSubscriptionRenewalDataStatus(ctx context.Context, prod
 func (c *StoreClient) GetNotificationHistory(ctx context.Context, body NotificationHistoryRequest) (responses []NotificationHistoryResponseItem, err error) {
 	baseURL := c.hostUrl + PathGetNotificationHistory
 
-	bodyBuf := new(bytes.Buffer)
-	err = json.NewEncoder(bodyBuf).Encode(body)
-	if err != nil {
-		return nil, err
-	}
+	// bodyBuf := new(bytes.Buffer)
+	// err = json.NewEncoder(bodyBuf).Encode(body)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	URL := baseURL
 	var client HTTPClient
@@ -335,7 +335,7 @@ func (c *StoreClient) GetNotificationHistory(ctx context.Context, body Notificat
 
 		// client = SetRequest(ctx, client, http.MethodPost, URL)
 		// client = SetRequestBodyJSON(client, bodyBuf)
-		client = SetRequestBodyJson(ctx, client, http.MethodPost, URL, bodyBuf)
+		client = SetRequestBodyJson(ctx, client, http.MethodPost, URL, body)
 		client = SetResponseBodyHandler(client, json.Unmarshal, &rsp)
 		_, err = client.Do(nil)
 		if err != nil {
