@@ -109,6 +109,7 @@ func SetRequestBodyJson(ctx context.Context, c HTTPClient, method string, url st
 		}
 		req.Header.Set("Content-Type", "application/json")
 		b, err := json.Marshal(v)
+		fmt.Printf("request body: %s", b)
 		if err != nil {
 			return nil, fmt.Errorf("failed to marshal request body: %w", err)
 		}
