@@ -63,7 +63,7 @@ func NewStoreClient(config *StoreConfig) *StoreClient {
 		Token: token,
 		cert:  &Cert{},
 		httpCli: &http.Client{
-			Timeout: 30 * time.Second,
+			Timeout: 60 * time.Second,
 		},
 		hostUrl: hostUrl,
 	}
