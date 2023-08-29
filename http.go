@@ -101,6 +101,22 @@ func SetRequest(ctx context.Context, c HTTPClient, method string, url string) Do
 	}
 }
 
+func SetRequestBodyJson(ctx context.Context, c HTTPClient, method string, url string, v any) DoFunc {
+	return func(_ *http.Request) (*http.Response, error) {
+		req, err := http.NewRequestWithContext(ctx, method, url, nil)
+		if err != nil {
+			return nil, err
+		}
+		req.Header.Set("Content-Type", "application/json")
+		b, err := json.Marshal(v)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal request body: %w", err)
+		}
+		req.Body = io.NopCloser(bytes.NewReader(b))
+		return c.Do(req)
+	}
+}
+
 type Marshaller func(v any) ([]byte, error)
 type Unmarshaller func(b []byte, v any) error
 

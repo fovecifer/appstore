@@ -333,8 +333,9 @@ func (c *StoreClient) GetNotificationHistory(ctx context.Context, body Notificat
 		rsp := NotificationHistoryResponses{}
 		rsp.NotificationHistory = make([]NotificationHistoryResponseItem, 0)
 
-		client = SetRequest(ctx, client, http.MethodPost, URL)
-		client = SetRequestBodyJSON(client, bodyBuf)
+		// client = SetRequest(ctx, client, http.MethodPost, URL)
+		// client = SetRequestBodyJSON(client, bodyBuf)
+		client = SetRequestBodyJson(ctx, client, http.MethodPost, URL, bodyBuf)
 		client = SetResponseBodyHandler(client, json.Unmarshal, &rsp)
 		_, err = client.Do(nil)
 		if err != nil {
